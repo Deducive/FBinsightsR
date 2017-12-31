@@ -1,2 +1,2 @@
 # FBinsightsR
-Use R to grab insights from Facebook.
+Use R to grab insights from Facebook via its API.
