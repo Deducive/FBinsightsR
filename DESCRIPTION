@@ -5,6 +5,10 @@ Version: 0.0.1
 Author: Paul Newnes
 Maintainer: Paul Newnes <paulnewnes@gmail.com>
 Description: The Facebook Insights API is extensive and R is the perfect tool through which to analyse. This package provides simple functions for repetitive insights API tasks.
+Depends:
+    httr,
+    dplyr,
+    lubridate
 License: 
 Encoding: UTF-8
 LazyData: true

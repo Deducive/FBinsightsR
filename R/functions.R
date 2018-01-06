@@ -1,14 +1,8 @@
-# Require packages
-
-require(httr)
-require(lubridate)
-require(tidyverse)
-
 # Set functions
 
 # Insights by age & gender function
 
-FBins_age_gen <- function(sdate, udate, report_level){
+FBins_age_gen <- function(sdate, udate, report_level, token){
   #set variables
   sstring <- paste0('"','since','"')
   ustring <- paste0('"','until','"')
@@ -18,7 +12,7 @@ FBins_age_gen <- function(sdate, udate, report_level){
   #call insights
   report <- GET('https://graph.facebook.com/v2.10/act_224743358/insights',
                 query = list(
-                  access_token = access_token,
+                  access_token = token,
                   time_range = time_range,
                   level= report_level,
                   fields = "campaign_id, adset_id, adset_name, ad_id, ad_name, impressions, cpm, reach, clicks, unique_clicks, ctr, cpc, unique_ctr, cost_per_unique_click, estimated_ad_recall_rate, cost_per_estimated_ad_recallers, spend, canvas_avg_view_time, canvas_avg_view_percent",
@@ -32,7 +26,7 @@ FBins_age_gen <- function(sdate, udate, report_level){
 
 # Summary insights function
 
-FB_ins_summ <- function(sdate, udate, report_level, time_increment){
+FB_ins_summ <- function(sdate, udate, report_level, time_increment, token){
   #set strings
   sstring <- paste0('"','since','"')
   ustring <- paste0('"','until','"')
@@ -42,9 +36,9 @@ FB_ins_summ <- function(sdate, udate, report_level, time_increment){
   #call insights
   report <- GET('https://graph.facebook.com/v2.10/act_224743358/insights',
                 query = list(
-                  access_token = access_token,
+                  access_token = token,
                   time_range = time_range,
-                  level= report_level,
+                  level = report_level,
                   fields = "campaign_id, adset_id, adset_name, ad_id, ad_name, impressions, cpm, reach, frequency, clicks, unique_clicks, ctr, cpc, unique_ctr, cost_per_unique_click, estimated_ad_recall_rate, cost_per_estimated_ad_recallers, spend, canvas_avg_view_time, canvas_avg_view_percent",
                   time_increment=time_increment,
                   limit = "10000"
