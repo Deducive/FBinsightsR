@@ -1,10 +1,10 @@
 Package: FBinsightsR
 Type: Package
 Title: Simple Functions for Grabbing Facebook Insights via the API
-Version: 0.0.1
+Version: 0.1.0
 Author: Deducive
 Maintainer: Paul Newnes <paulnewnes@gmail.com>
-Description: The Facebook Insights API is extensive and R is the perfect tool through which to analyse. This package provides simple functions for repetitive insights API tasks.
+Description: The Facebook Insights API is extensive and R is the perfect tool through which to analyse ad campaign performance. This package provides simple functions for repetitive insights API tasks.
 Imports:
     httr,
     tidyverse,
