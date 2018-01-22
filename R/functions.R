@@ -12,7 +12,7 @@
 #' @examples
 #' fbins_ag("start_date", "until_date", "report_level", "fb_access_token")
 #' fbins_ag("2017-01-20", "2017-01-22", "ad", "ABCDEFG1234567890ABCDEFG")
-library(httr)
+
 fbins_ag <- function(start_date, until_date, report_level, fb_access_token){
   #set variables
   sstring <- paste0('"','since','"')

@@ -9,6 +9,9 @@ Imports:
     httr,
     tidyverse,
     lubridate
+Depends:
+    httr,
+    tidyverse
 License: 
 Encoding: UTF-8
 LazyData: true
