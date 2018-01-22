@@ -1,18 +1,29 @@
 # Set functions
 
-# Insights by age & gender function
+#' Insights by age & gender function
+#'
+#' This function will return all available insights per day including age and gender breakdown to the specified report level.
+#' @param start_date The first full day to report, in the format "YYYY-MM-DD" .
+#' @param until_date The last full day to report, in the format "YYYY-MM-DD" .
+#' @param report_level One of "ad", "adset", "campaign" or "account" .
+#' @param fb_access_token This must be a valid access token with sufficient privileges. Visit the Facebook API Graph Explorer to acquire one.
+#' @keywords facebook insights api
+#' @export
+#' @examples
+#' fbins_ag("start_date", "until_date", "report_level", "fb_access_token")
+#' fbins_ag("2017-01-20", "2017-01-22", "ad", "ABCDEFG1234567890ABCDEFG")
 
-FBins_age_gen <- function(sdate, udate, report_level, token){
+fbins_ag <- function(start_date, until_date, report_level, fb_access_token){
   #set variables
   sstring <- paste0('"','since','"')
   ustring <- paste0('"','until','"')
   #paste together JSON string
-  range_content <- paste0(sstring,':','"',sdate,'"',',',ustring,':','"',udate,'"')
+  range_content <- paste0(sstring,':','"',start_date,'"',',',ustring,':','"',until_date,'"')
   time_range <- paste0("{",range_content,"}")
   #call insights
-  report <- GET('https://graph.facebook.com/v2.10/act_224743358/insights',
+  report <- content(GET('https://graph.facebook.com/v2.10/act_224743358/insights',
                 query = list(
-                  access_token = token,
+                  access_token = fb_access_token,
                   time_range = time_range,
                   level= report_level,
                   fields = "campaign_id, adset_id, adset_name, ad_id, ad_name, impressions, cpm, reach, clicks, unique_clicks, ctr, cpc, unique_ctr, cost_per_unique_click, estimated_ad_recall_rate, cost_per_estimated_ad_recallers, spend, canvas_avg_view_time, canvas_avg_view_percent",
@@ -21,22 +32,39 @@ FBins_age_gen <- function(sdate, udate, report_level, token){
                   breakdowns = "age, gender"
                 ),
                 encode = "json",
-                verbose())
+                verbose()))
+  #extract data and name
+  content_result[["paging"]] <- NULL
+  data.frame(content_result$data %>% reduce(bind_rows))
 }
 
-# Summary insights function
+#' Summary insights function
+#' This function returns a summary of insights with no brakdown.
+#' @param start_date The first full day to report, in the format "YYYY-MM-DD" .
+#' @param until_date The last full day to report, in the format "YYYY-MM-DD" .
+#' @param report_level One of "ad", "adset", "campaign" or "account" .
+#' @param time_increment An integer representing the reporting increment. If blank, defaults to the entire reporting period.
+#' @param fb_access_token This must be a valid access token with sufficient privileges. Visit the Facebook API Graph Explorer to acquire one.
+#' @keywords facebook insights api
+#' @export
+#' @examples
+#' fbins_summ("start_date", "until_date", "report_level", "time_increment", "fb_access_token")
+#' fbins_summ("2017-01-20", "2017-01-22", "ad", "1", "ABCDEFG1234567890ABCDEFG")
+#' fbins_summ("2017-01-20", "2017-01-22", "ad", "", "ABCDEFG1234567890ABCDEFG")
 
-FB_ins_summ <- function(sdate, udate, report_level, time_increment, token){
+
+# Summary insights function
+fbins_summ <- function(start_date, until_date, report_level, time_increment, fb_access_token){
   #set strings
   sstring <- paste0('"','since','"')
   ustring <- paste0('"','until','"')
   #paste together JSON string
-  range_content <- paste0(sstring,':','"',sdate,'"',',',ustring,':','"',udate,'"')
+  range_content <- paste0(sstring,':','"',start_date,'"',',',ustring,':','"',until_date,'"')
   time_range <- paste0("{",range_content,"}")
   #call insights
-  report <- GET('https://graph.facebook.com/v2.10/act_224743358/insights',
+  content_result <- content(GET('https://graph.facebook.com/v2.10/act_224743358/insights',
                 query = list(
-                  access_token = token,
+                  access_token = access_token,
                   time_range = time_range,
                   level = report_level,
                   fields = "campaign_id, adset_id, adset_name, ad_id, ad_name, impressions, cpm, reach, frequency, clicks, unique_clicks, ctr, cpc, unique_ctr, cost_per_unique_click, estimated_ad_recall_rate, cost_per_estimated_ad_recallers, spend, canvas_avg_view_time, canvas_avg_view_percent",
@@ -44,14 +72,8 @@ FB_ins_summ <- function(sdate, udate, report_level, time_increment, token){
                   limit = "10000"
                 ),
                 encode = "json",
-                verbose())
-}
-
-# Extract into a data frame
-
-FB_extract <- function(report){
+                verbose()))
   #extract data and name
-  content_result <- content(report)
   content_result[["paging"]] <- NULL
   data.frame(content_result$data %>% reduce(bind_rows))
 }
