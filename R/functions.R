@@ -1,8 +1,7 @@
 # Set functions
 
 #' FB insights by age & gender function
-#'
-#' This function will return all available FB insights per day including age and gender breakdown to the specified report level, and place into a data frame.
+#' This returns all available FB insights per day including age and gender breakdown to the specified report level, and place into a data frame.
 #' When reporting by age and gender the FB API can timeout when reporting on only a few days. This function allows you to pull one day at a time if needed.
 #' @param start_date The first full day to report, in the format "YYYY-MM-DD" .
 #' @param until_date The last full day to report, in the format "YYYY-MM-DD" .
@@ -40,7 +39,7 @@ fbins_ag <- function(start_date, until_date, report_level, fb_access_token){
 }
 
 #' FB summary insights function
-#' This function returns, in a data frame, a summary of FB insights with no breakdown
+#' This returns, in a data frame, a summary of FB insights with no breakdown
 #' @param start_date The first full day to report, in the format "YYYY-MM-DD" .
 #' @param until_date The last full day to report, in the format "YYYY-MM-DD" .
 #' @param report_level One of "ad", "adset", "campaign" or "account" .
