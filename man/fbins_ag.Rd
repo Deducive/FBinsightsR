@@ -2,9 +2,7 @@
 % Please edit documentation in R/functions.R
 \name{fbins_ag}
 \alias{fbins_ag}
-\title{FB insights by age & gender function.
-This returns all available FB insights per day including age and gender breakdown to the specified report level, and place into a data frame.
-When reporting by age and gender the FB API can timeout when reporting on only a few days. This function allows you to pull one day at a time if needed.}
+\title{Get FB insights by age & gender.}
 \usage{
 fbins_ag(start_date, until_date, report_level, fb_access_token)
 }
@@ -18,9 +16,7 @@ fbins_ag(start_date, until_date, report_level, fb_access_token)
 \item{fb_access_token}{This must be a valid access token with sufficient privileges. Visit the Facebook API Graph Explorer to acquire one.}
 }
 \description{
-FB insights by age & gender function.
-This returns all available FB insights per day including age and gender breakdown to the specified report level, and place into a data frame.
-When reporting by age and gender the FB API can timeout when reporting on only a few days. This function allows you to pull one day at a time if needed.
+This returns all available FB insights per day including age and gender breakdown to the specified report level, and place into a data frame. When reporting by age and gender the FB API can timeout when reporting on only a few days. This function allows you to pull one day at a time if needed.
 }
 \examples{
 fbins_ag("start_date", "until_date", "report_level", "fb_access_token")
