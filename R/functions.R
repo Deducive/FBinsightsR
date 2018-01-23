@@ -1,6 +1,6 @@
 # Set functions
 
-#' FB insights by age & gender function
+#' FB insights by age & gender function.
 #' This returns all available FB insights per day including age and gender breakdown to the specified report level, and place into a data frame.
 #' When reporting by age and gender the FB API can timeout when reporting on only a few days. This function allows you to pull one day at a time if needed.
 #' @param start_date The first full day to report, in the format "YYYY-MM-DD" .
@@ -38,7 +38,7 @@ fbins_ag <- function(start_date, until_date, report_level, fb_access_token){
   data.frame(content_result$data %>% reduce(bind_rows))
 }
 
-#' FB summary insights function
+#' FB summary insights function.
 #' This returns, in a data frame, a summary of FB insights with no breakdown
 #' @param start_date The first full day to report, in the format "YYYY-MM-DD" .
 #' @param until_date The last full day to report, in the format "YYYY-MM-DD" .
@@ -52,8 +52,6 @@ fbins_ag <- function(start_date, until_date, report_level, fb_access_token){
 #' fbins_summ("2017-01-20", "2017-01-22", "ad", "1", "ABCDEFG1234567890ABCDEFG")
 #' fbins_summ("2017-01-20", "2017-01-22", "ad", "", "ABCDEFG1234567890ABCDEFG")
 
-
-# Summary insights function
 fbins_summ <- function(start_date, until_date, report_level, time_increment, fb_access_token){
   #set strings
   sstring <- paste0('"','since','"')

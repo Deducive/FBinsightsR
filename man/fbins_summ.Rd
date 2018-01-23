@@ -2,7 +2,7 @@
 % Please edit documentation in R/functions.R
 \name{fbins_summ}
 \alias{fbins_summ}
-\title{FB summary insights function
+\title{FB summary insights function.
 This returns, in a data frame, a summary of FB insights with no breakdown}
 \usage{
 fbins_summ(start_date, until_date, report_level, time_increment,
@@ -20,7 +20,7 @@ fbins_summ(start_date, until_date, report_level, time_increment,
 \item{fb_access_token}{This must be a valid access token with sufficient privileges. Visit the Facebook API Graph Explorer to acquire one.}
 }
 \description{
-FB summary insights function
+FB summary insights function.
 This returns, in a data frame, a summary of FB insights with no breakdown
 }
 \examples{
