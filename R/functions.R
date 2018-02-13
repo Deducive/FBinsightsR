@@ -6,26 +6,32 @@
 #' @param until_date The last full day to report, in the format "YYYY-MM-DD" .
 #' @param report_level One of "ad", "adset", "campaign" or "account" .
 #' @param fb_access_token This must be a valid access token with sufficient privileges. Visit the Facebook API Graph Explorer to acquire one.
+#' @param account This is the ad account, campaign, adset or ad ID to be queried.
 #' @keywords facebook insights api
 #' @export
 #' @examples
-#' fbins_ag("start_date", "until_date", "report_level", "fb_access_token")
-#' fbins_ag("2017-01-20", "2017-01-22", "ad", "ABCDEFG1234567890ABCDEFG")
+#' fbins_ag("start_date", "until_date", "report_level", "fb_access_token", "account")
+#' fbins_ag("2017-01-20", "2017-01-22", "ad", "ABCDEFG1234567890ABCDEFG", act_12345678)
 
-fbins_ag <- function(start_date, until_date, report_level, fb_access_token){
+fbins_ag <- function(start_date, until_date, report_level, fb_access_token, account){
   #set variables
   sstring <- paste0('"','since','"')
   ustring <- paste0('"','until','"')
   #paste together JSON string
   range_content <- paste0(sstring,':','"',start_date,'"',',',ustring,':','"',until_date,'"')
   time_range <- paste0("{",range_content,"}")
+  #paste together URL
+  api_version <- "v2.12"
+  url_stem <- "https://graph.facebook.com/"
+  URL <- paste0(url_stem, api_version, "/", account, "/insights")
+  
   #call insights
-  content_result <- content(GET('https://graph.facebook.com/v2.10/act_224743358/insights',
+  content_result <- content(GET(URL,
                 query = list(
                   access_token = fb_access_token,
                   time_range = time_range,
                   level= report_level,
-                  fields = "campaign_id, adset_id, adset_name, ad_id, ad_name, impressions, cpm, reach, clicks, unique_clicks, ctr, cpc, unique_ctr, cost_per_unique_click, estimated_ad_recall_rate, cost_per_estimated_ad_recallers, spend, canvas_avg_view_time, canvas_avg_view_percent",
+                  fields = "campaign_id, objective, adset_id, adset_name, ad_id, ad_name, impressions, cpm, reach, clicks, unique_clicks, outbound_clicks, unique_outbound_clicks, ctr, cpc, unique_ctr, cost_per_unique_click, estimated_ad_recall_rate, cost_per_estimated_ad_recallers, spend, canvas_avg_view_time, canvas_avg_view_percent",
                   time_increment="1",
                   limit = "10000",
                   breakdowns = "age, gender"
@@ -43,6 +49,7 @@ fbins_ag <- function(start_date, until_date, report_level, fb_access_token){
 #' @param until_date The last full day to report, in the format "YYYY-MM-DD" .
 #' @param report_level One of "ad", "adset", "campaign" or "account" .
 #' @param time_increment An integer representing the reporting increment. If blank, defaults to the entire reporting period.
+#' @param account This is the ad account, campaign, adset or ad ID to be queried.
 #' @param fb_access_token This must be a valid access token with sufficient privileges. Visit the Facebook API Graph Explorer to acquire one.
 #' @keywords facebook insights api
 #' @export
@@ -51,20 +58,25 @@ fbins_ag <- function(start_date, until_date, report_level, fb_access_token){
 #' fbins_summ("2017-01-20", "2017-01-22", "ad", "1", "ABCDEFG1234567890ABCDEFG")
 #' fbins_summ("2017-01-20", "2017-01-22", "ad", "", "ABCDEFG1234567890ABCDEFG")
 
-fbins_summ <- function(start_date, until_date, report_level, time_increment, fb_access_token){
+fbins_summ <- function(start_date, until_date, report_level, time_increment, fb_access_token, account){
   #set strings
   sstring <- paste0('"','since','"')
   ustring <- paste0('"','until','"')
   #paste together JSON string
   range_content <- paste0(sstring,':','"',start_date,'"',',',ustring,':','"',until_date,'"')
   time_range <- paste0("{",range_content,"}")
+  #paste together URL
+  api_version <- "v2.12"
+  url_stem <- "https://graph.facebook.com/"
+  URL <- paste0(url_stem, api_version, "/", account, "/insights")
+  
   #call insights
-  content_result <- content(GET('https://graph.facebook.com/v2.10/act_224743358/insights',
+  content_result <- content(GET(URL,
                 query = list(
                   access_token = fb_access_token,
                   time_range = time_range,
                   level = report_level,
-                  fields = "campaign_id, adset_id, adset_name, ad_id, ad_name, impressions, cpm, reach, frequency, clicks, unique_clicks, ctr, cpc, unique_ctr, cost_per_unique_click, estimated_ad_recall_rate, cost_per_estimated_ad_recallers, spend, canvas_avg_view_time, canvas_avg_view_percent",
+                  fields = "campaign_id, objective, adset_id, adset_name, ad_id, ad_name, impressions, cpm, reach, frequency, clicks, unique_clicks, outbound_clicks, unique_outbound_clicks, ctr, cpc, unique_ctr, cost_per_unique_click, estimated_ad_recall_rate, cost_per_estimated_ad_recallers, spend, canvas_avg_view_time, canvas_avg_view_percent",
                   time_increment=time_increment,
                   limit = "10000"
                 ),
