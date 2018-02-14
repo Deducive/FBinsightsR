@@ -11,7 +11,7 @@
 #' @export
 #' @examples
 #' fbins_ag("start_date", "until_date", "report_level", "fb_access_token", "account")
-#' fbins_ag("2017-01-20", "2017-01-22", "ad", "ABCDEFG1234567890ABCDEFG", act_12345678)
+#' fbins_ag("2017-01-20", "2017-01-22", "ad", "ABCDEFG1234567890ABCDEFG", "act_12345678")
 
 fbins_ag <- function(start_date, until_date, report_level, fb_access_token, account){
   #set variables
@@ -49,14 +49,14 @@ fbins_ag <- function(start_date, until_date, report_level, fb_access_token, acco
 #' @param until_date The last full day to report, in the format "YYYY-MM-DD" .
 #' @param report_level One of "ad", "adset", "campaign" or "account" .
 #' @param time_increment An integer representing the reporting increment. If blank, defaults to the entire reporting period.
-#' @param account This is the ad account, campaign, adset or ad ID to be queried.
 #' @param fb_access_token This must be a valid access token with sufficient privileges. Visit the Facebook API Graph Explorer to acquire one.
+#' @param account This is the ad account, campaign, adset or ad ID to be queried.
 #' @keywords facebook insights api
 #' @export
 #' @examples
-#' fbins_summ("start_date", "until_date", "report_level", "time_increment", "fb_access_token")
-#' fbins_summ("2017-01-20", "2017-01-22", "ad", "1", "ABCDEFG1234567890ABCDEFG")
-#' fbins_summ("2017-01-20", "2017-01-22", "ad", "", "ABCDEFG1234567890ABCDEFG")
+#' fbins_summ("start_date", "until_date", "report_level", "time_increment", "fb_access_token", "account)
+#' fbins_summ("2017-01-20", "2017-01-22", "ad", "1", "ABCDEFG1234567890ABCDEFG", "act_12345678")
+#' fbins_summ("2017-01-20", "2017-01-22", "ad", "", "ABCDEFG1234567890ABCDEFG", "act_12345678")
 
 fbins_summ <- function(start_date, until_date, report_level, time_increment, fb_access_token, account){
   #set strings
