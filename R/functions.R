@@ -26,18 +26,19 @@ fbins_ag <- function(start_date, until_date, report_level, fb_access_token, acco
   URL <- paste0(url_stem, api_version, "/", account, "/insights")
   
   #call insights
-  content_result <- content(GET(URL,
-                query = list(
-                  access_token = fb_access_token,
-                  time_range = time_range,
-                  level= report_level,
-                  fields = "campaign_id, objective, adset_id, adset_name, ad_id, ad_name, impressions, cpm, reach, clicks, unique_clicks, ctr, cpc, unique_ctr, cost_per_unique_click, estimated_ad_recall_rate, cost_per_estimated_ad_recallers, spend, canvas_avg_view_time, canvas_avg_view_percent",
-                  time_increment="1",
-                  limit = "10000",
-                  breakdowns = "age, gender"
-                ),
-                encode = "json",
-                verbose()))
+  content_result <- content(GET(
+                  URL,
+                  query = list(
+                    access_token = fb_access_token,
+                    time_range = time_range,
+                    level= report_level,
+                    fields = "campaign_id, objective, adset_id, adset_name, ad_id, ad_name, impressions, cpm, reach, clicks, unique_clicks, ctr, cpc, unique_ctr, cost_per_unique_click, estimated_ad_recall_rate, cost_per_estimated_ad_recallers, spend, canvas_avg_view_time, canvas_avg_view_percent",
+                    time_increment="1",
+                    limit = "10000",
+                    breakdowns = "age, gender"
+                    ),
+                  encode = "json",
+                  verbose()))
   #extract data and name
   content_result[["paging"]] <- NULL
   data.frame(content_result$data %>% reduce(bind_rows))
