@@ -5,7 +5,7 @@
 \title{FB page basic insights.
 This returns, in a data frame, a summary of FB page insights within the specified time period}
 \usage{
-fbins_page(start_date, until_date, period, fb_access_token, account)
+fbins_page(start_date, until_date, period, page_access_token, account)
 }
 \arguments{
 \item{start_date}{The first full day to report, in the format "YYYY-MM-DD" .}

@@ -154,11 +154,11 @@ fbins_page <- function(start_date, until_date, period, page_access_token, accoun
 #' @param until_date The last full day to report, in the format "YYYY-MM-DD" .
 #' @param period One of "day", "week", "days_28", "month", "lifetime", "total_over_range" .
 #' @param page_access_token This must be a valid page access token with sufficient privileges. Visit the Facebook API Graph Explorer to acquire one.
-#' @param page_account This is the Instagram business account to be queried.
+#' @param insta_account This is the Instagram business account to be queried.
 #' @keywords facebook insights api instagram
 #' @export
 #' @examples
-#' fbins_insta("start_date", "until_date", "period", "page_access_token", "page_account")
+#' fbins_insta("start_date", "until_date", "period", "page_access_token", "insta_account")
 #' fbins_insta("2017-01-20", "2017-01-22", "day", "ABCDEFG1234567890ABCDEFG", "1234567890123")
 
 fbins_insta <- function(start_date, until_date, time_period, page_access_token, insta_account){
@@ -199,7 +199,3 @@ fbins_insta <- function(start_date, until_date, time_period, page_access_token, 
     select(-end_time) %>% 
     select(ncol(result_df), 1:ncol(result_df))
 }
-
-
-
-
