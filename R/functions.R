@@ -107,8 +107,7 @@ fbins_summ <- function(start_date, until_date, report_level, time_increment, fb_
 #' fbins_page("start_date", "until_date", "period", "page_access_token", "page_account")
 #' fbins_page("2017-01-20", "2017-01-22", "day", "ABCDEFG1234567890ABCDEFG", "1234567890123")
 
-fbins_page <- function(start_date, until_date, period, fb_access_token, account){
-  #https://graph.facebook.com/v3.0/938742166191164/insights"
+fbins_page <- function(start_date, until_date, period, page_access_token, account){
   #paste together URL
   api_version <- "v3.0"
   url_stem <- "https://graph.facebook.com/"
@@ -146,4 +145,61 @@ fbins_page <- function(start_date, until_date, period, fb_access_token, account)
     select(-end_time) %>% 
     select(ncol(result_df), 1:ncol(result_df))
 }
+
+###### Function 4 - fbins_insta
+
+#' Instagram basic insights.
+#' This returns, in a data frame, a summary of Instagram insights within the specified time period
+#' @param start_date The first full day to report, in the format "YYYY-MM-DD" .
+#' @param until_date The last full day to report, in the format "YYYY-MM-DD" .
+#' @param period One of "day", "week", "days_28", "month", "lifetime", "total_over_range" .
+#' @param page_access_token This must be a valid page access token with sufficient privileges. Visit the Facebook API Graph Explorer to acquire one.
+#' @param page_account This is the Instagram business account to be queried.
+#' @keywords facebook insights api instagram
+#' @export
+#' @examples
+#' fbins_insta("start_date", "until_date", "period", "page_access_token", "page_account")
+#' fbins_insta("2017-01-20", "2017-01-22", "day", "ABCDEFG1234567890ABCDEFG", "1234567890123")
+
+fbins_insta <- function(start_date, until_date, time_period, page_access_token, insta_account){
+  #paste together URL
+  api_version <- "v3.0"
+  url_stem <- "https://graph.facebook.com/"
+  URL <- paste0(url_stem, api_version, "/", insta_account, "/insights")
+  
+  #call insights
+  content_result <- content(GET
+                            (URL,
+                              query = list(
+                                metric = "reach, impressions, follower_count, profile_views, website_clicks",
+                                period = time_period,
+                                access_token = page_access_token,
+                                since = start_date,
+                                until = until_date),
+                              encode = "json",
+                              verbose()))
+  
+  ## Create df with extracted date range
+  result_df <- data.frame(content_result$data[[1]][["values"]] %>%
+                            reduce(bind_rows)) %>%
+    select("end_time")
+  
+  ## Loop through, extract and bind to date only frame
+  for(i in seq_along(content_result$data)){
+    result_temp <- data.frame(content_result$data[[i]][["values"]] %>%
+                                reduce(bind_rows)) %>%
+      rename(!!content_result[["data"]][[i]][["name"]] := value)
+    result_df <- merge(result_df, result_temp, by = "end_time")
+  }
+  rm(result_temp)
+  
+  ## Trim date character, new column in date class, delete old col and reorder
+  result_df <- result_df %>%
+    mutate(date=ymd(substr(end_time, start = 1, stop = 10))) %>%
+    select(-end_time) %>% 
+    select(ncol(result_df), 1:ncol(result_df))
+}
+
+
+
 
