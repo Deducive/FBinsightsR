@@ -5,30 +5,30 @@
 \title{FB summary insights function.
 This returns, in a data frame, a summary of FB insights with no breakdown}
 \usage{
-fbins_summ(start_date, until_date, report_level, time_increment, fb_access_token, fb_ad_account)
+fbins_summ(start_date, until_date, report_level, time_increment,
+  fb_access_token, account)
 }
 \arguments{
-\item{start_date}{The first full day to report, in the format "YYYY-MM-DD" .
-}
-\item{until_date}{The last full day to report, in the format "YYYY-MM-DD" .
-}
-\item{report_level}{One of "ad", "adset", "campaign" or "account" .
-}
-\item{time_increment}{An integer representing the reporting increment. If blank, defaults to the entire reporting period.
-}
-\item{fb_access_token}{This must be a valid access token with sufficient privileges. Visit the Facebook API Graph Explorer to acquire one.
-}
-\item{fb_ad_account}{
-This is the Facebook ad account in the format act_xxxxxxx.
+\item{start_date}{The first full day to report, in the format "YYYY-MM-DD" .}
+
+\item{until_date}{The last full day to report, in the format "YYYY-MM-DD" .}
+
+\item{report_level}{One of "ad", "adset", "campaign" or "account" .}
+
+\item{time_increment}{An integer representing the reporting increment. If blank, defaults to the entire reporting period.}
+
+\item{fb_access_token}{This must be a valid access token with sufficient privileges. Visit the Facebook API Graph Explorer to acquire one.}
+
+\item{account}{This is the ad account, campaign, adset or ad ID to be queried.}
 }
 \description{
 FB summary insights function.
 This returns, in a data frame, a summary of FB insights with no breakdown
 }
 \examples{
-fbins_summ("start_date", "until_date", "report_level", "time_increment", "fb_access_token", "fb_ad_account")
-fbins_summ("2017-01-20", "2017-01-22", "ad", "1", "ABCDEFG1234567890ABCDEFG", "act_123456789"")
-fbins_summ("2017-01-20", "2017-01-22", "ad", "", "ABCDEFG1234567890ABCDEFG", "act_123456789")
+fbins_summ("start_date", "until_date", "report_level", "time_increment", "fb_access_token", "account")
+fbins_summ("2017-01-20", "2017-01-22", "ad", "1", "ABCDEFG1234567890ABCDEFG", "act_12345678")
+fbins_summ("2017-01-20", "2017-01-22", "ad", "", "ABCDEFG1234567890ABCDEFG", "act_12345678")
 }
 \keyword{api}
 \keyword{facebook}

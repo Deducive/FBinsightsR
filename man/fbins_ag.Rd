@@ -4,29 +4,25 @@
 \alias{fbins_ag}
 \title{Get FB insights by age & gender.}
 \usage{
-fbins_ag(start_date, until_date, report_level, fb_access_token, fb_ad_account)}
+fbins_ag(start_date, until_date, report_level, fb_access_token, account)
+}
 \arguments{
-\item{start_date}{
-The first full day to report, in the format "YYYY-MM-DD" .
-}
-\item{until_date}{
-The last full day to report, in the format "YYYY-MM-DD" .
-}
-\item{report_level}{
-One of "ad", "adset", "campaign" or "account" .
-}
-\item{fb_access_token}{
-This must be a valid access token with sufficient privileges. Visit the Facebook API Graph Explorer to acquire one.
-}
-\item{fb_ad_account}{
-This is the Facebook ad account in the format act_xxxxxxx.
+\item{start_date}{The first full day to report, in the format "YYYY-MM-DD" .}
+
+\item{until_date}{The last full day to report, in the format "YYYY-MM-DD" .}
+
+\item{report_level}{One of "ad", "adset", "campaign" or "account" .}
+
+\item{fb_access_token}{This must be a valid access token with sufficient privileges. Visit the Facebook API Graph Explorer to acquire one.}
+
+\item{account}{This is the ad account, campaign, adset or ad ID to be queried.}
 }
 \description{
 This returns all available FB insights per day including age and gender breakdown to the specified report level, and place into a data frame. When reporting by age and gender the FB API can timeout when reporting on only a few days. This function allows you to pull one day at a time if needed.
 }
 \examples{
-fbins_ag("start_date", "until_date", "report_level", "fb_access_token", "fb_ad_account")
-fbins_ag("2017-01-20", "2017-01-22", "ad", "ABCDEFG1234567890ABCDEFG", "act_123456789")
+fbins_ag("start_date", "until_date", "report_level", "fb_access_token", "account")
+fbins_ag("2017-01-20", "2017-01-22", "ad", "ABCDEFG1234567890ABCDEFG", "act_12345678")
 }
 \keyword{api}
 \keyword{facebook}

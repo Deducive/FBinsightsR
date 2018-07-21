@@ -3,7 +3,7 @@ Type: Package
 Title: Simple Functions for Grabbing Facebook Insights via the API
 Version: 0.1.0
 Author: Deducive
-Maintainer: Paul Newnes <paulnewnes@gmail.com>
+Maintainer: Paul Newnes <paulasnewnes@gmail.com>
 Description: The Facebook Insights API is extensive and R is the perfect tool through which to analyse ad campaign performance. This package provides simple functions for repetitive insights API tasks.
 Imports:
     httr,
@@ -11,7 +11,8 @@ Imports:
     lubridate
 Depends:
     httr,
-    tidyverse
+    tidyverse,
+    lubridate
 License: 
 Encoding: UTF-8
 LazyData: true
