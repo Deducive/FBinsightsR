@@ -149,7 +149,8 @@ fbins_page <- function(start_date, until_date, period, page_access_token, accoun
 ###### Function 4 - fbins_insta
 
 #' Instagram basic insights.
-#' This returns, in a data frame, a summary of Instagram insights within the specified time period
+#' This returns, in a data frame, a summary of Instagram insights within the specified time period. 
+#' Only 30 days' data can be retrieved through the API and this is the full scope of variables.
 #' @param start_date The first full day to report, in the format "YYYY-MM-DD" .
 #' @param until_date The last full day to report, in the format "YYYY-MM-DD" .
 #' @param period One of "day", "week", "days_28", "month", "lifetime", "total_over_range" .
