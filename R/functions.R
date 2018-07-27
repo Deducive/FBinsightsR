@@ -107,7 +107,7 @@ fbins_summ <- function(start_date, until_date, report_level, time_increment, fb_
 #' fbins_page("start_date", "until_date", "period", "page_access_token", "page_account")
 #' fbins_page("2017-01-20", "2017-01-22", "day", "ABCDEFG1234567890ABCDEFG", "1234567890123")
 
-fbins_page <- function(start_date, until_date, period, page_access_token, account){
+fbins_page <- function(start_date, until_date, period, page_access_token, page_account){
   #paste together URL
   api_version <- "v3.0"
   url_stem <- "https://graph.facebook.com/"
