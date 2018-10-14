@@ -3,7 +3,8 @@
 \name{fbins_insta}
 \alias{fbins_insta}
 \title{Instagram basic insights.
-This returns, in a data frame, a summary of Instagram insights within the specified time period}
+This returns, in a data frame, a summary of Instagram insights within the specified time period. 
+Only 30 days' data can be retrieved through the API and this is the full scope of variables.}
 \usage{
 fbins_insta(start_date, until_date, time_period, page_access_token,
   insta_account)
@@ -21,7 +22,8 @@ fbins_insta(start_date, until_date, time_period, page_access_token,
 }
 \description{
 Instagram basic insights.
-This returns, in a data frame, a summary of Instagram insights within the specified time period
+This returns, in a data frame, a summary of Instagram insights within the specified time period. 
+Only 30 days' data can be retrieved through the API and this is the full scope of variables.
 }
 \examples{
 fbins_insta("start_date", "until_date", "period", "page_access_token", "insta_account")

@@ -5,25 +5,26 @@
 \title{FB page basic insights.
 This returns, in a data frame, a summary of FB page insights within the specified time period}
 \usage{
-fbins_page(start_date, until_date, period, page_access_token, account)
+fbins_page(start_date, until_date, time_period, page_access_token,
+  page_account)
 }
 \arguments{
 \item{start_date}{The first full day to report, in the format "YYYY-MM-DD" .}
 
 \item{until_date}{The last full day to report, in the format "YYYY-MM-DD" .}
 
-\item{period}{One of "day", "week", "days_28", "month", "lifetime", "total_over_range" .}
-
 \item{page_access_token}{This must be a valid page access token with sufficient privileges. Visit the Facebook API Graph Explorer to acquire one.}
 
 \item{page_account}{This is the fb page to be queried.}
+
+\item{period}{One of "day", "week", "days_28", "month", "lifetime", "total_over_range" .}
 }
 \description{
 FB page basic insights.
 This returns, in a data frame, a summary of FB page insights within the specified time period
 }
 \examples{
-fbins_page("start_date", "until_date", "period", "page_access_token", "page_account")
+fbins_page("start_date", "until_date", "time_period", "page_access_token", "page_account")
 fbins_page("2017-01-20", "2017-01-22", "day", "ABCDEFG1234567890ABCDEFG", "1234567890123")
 }
 \keyword{api}
