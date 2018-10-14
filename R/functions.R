@@ -23,7 +23,7 @@ fbins_ag <- function(start_date, until_date, report_level, fb_access_token, acco
   range_content <- paste0(sstring,':','"',start_date,'"',',',ustring,':','"',until_date,'"')
   time_range <- paste0("{",range_content,"}")
   #paste together URL
-  api_version <- "v3.0"
+  api_version <- "v3.1"
   url_stem <- "https://graph.facebook.com/"
   URL <- paste0(url_stem, api_version, "/", account, "/insights")
   
@@ -71,7 +71,7 @@ fbins_summ <- function(start_date, until_date, report_level, time_increment, fb_
   range_content <- paste0(sstring,':','"',start_date,'"',',',ustring,':','"',until_date,'"')
   time_range <- paste0("{",range_content,"}")
   #paste together URL
-  api_version <- "v3.0"
+  api_version <- "v3.1"
   url_stem <- "https://graph.facebook.com/"
   URL <- paste0(url_stem, api_version, "/", account, "/insights")
   
@@ -109,7 +109,7 @@ fbins_summ <- function(start_date, until_date, report_level, time_increment, fb_
 
 fbins_page <- function(start_date, until_date, time_period, page_access_token, page_account){
   #paste together URL
-  api_version <- "v3.0"
+  api_version <- "v3.1"
   url_stem <- "https://graph.facebook.com/"
   URL <- paste0(url_stem, api_version, "/", page_account, "/insights")
   
@@ -164,7 +164,7 @@ fbins_page <- function(start_date, until_date, time_period, page_access_token, p
 
 fbins_insta <- function(start_date, until_date, time_period, page_access_token, insta_account){
   #paste together URL
-  api_version <- "v3.0"
+  api_version <- "v3.1"
   url_stem <- "https://graph.facebook.com/"
   URL <- paste0(url_stem, api_version, "/", insta_account, "/insights")
   
@@ -200,3 +200,5 @@ fbins_insta <- function(start_date, until_date, time_period, page_access_token, 
     select(-end_time) %>% 
     select(ncol(result_df), 1:ncol(result_df))
 }
+
+
