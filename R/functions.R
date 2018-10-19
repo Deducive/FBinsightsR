@@ -49,7 +49,7 @@ fbins_ag <- function(start_date, until_date, report_level, fb_access_token, acco
 ###### Function 2 - fbins_summ
 
 #' FB summary insights function.
-#' This returns, in a data frame, a summary of FB insights with no breakdown
+#' @description This returns, in a data frame, a summary of FB insights with no breakdown
 #' @param start_date The first full day to report, in the format "YYYY-MM-DD" .
 #' @param until_date The last full day to report, in the format "YYYY-MM-DD" .
 #' @param report_level One of "ad", "adset", "campaign" or "account" .
@@ -95,7 +95,7 @@ fbins_summ <- function(start_date, until_date, report_level, time_increment, fb_
 ###### Function 3 - fbins_page
 
 #' FB page basic insights.
-#' This returns, in a data frame, a summary of FB page insights within the specified time period
+#' @description This returns, in a data frame, a summary of FB page insights within the specified time period
 #' @param start_date The first full day to report, in the format "YYYY-MM-DD" .
 #' @param until_date The last full day to report, in the format "YYYY-MM-DD" .
 #' @param period One of "day", "week", "days_28", "month", "lifetime", "total_over_range" .
@@ -149,7 +149,7 @@ fbins_page <- function(start_date, until_date, time_period, page_access_token, p
 ###### Function 4 - fbins_insta
 
 #' Instagram basic insights.
-#' This returns, in a data frame, a summary of Instagram insights within the specified time period. 
+#' @description This returns, in a data frame, a summary of Instagram insights within the specified time period. 
 #' Only 30 days' data can be retrieved through the API and this is the full scope of variables.
 #' @param start_date The first full day to report, in the format "YYYY-MM-DD" .
 #' @param until_date The last full day to report, in the format "YYYY-MM-DD" .
