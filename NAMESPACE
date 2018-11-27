@@ -3,4 +3,5 @@
 export(fbins_ag)
 export(fbins_insta)
 export(fbins_page)
+export(fbins_pxa)
 export(fbins_summ)

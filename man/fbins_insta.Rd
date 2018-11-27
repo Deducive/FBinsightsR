@@ -2,9 +2,7 @@
 % Please edit documentation in R/functions.R
 \name{fbins_insta}
 \alias{fbins_insta}
-\title{Instagram basic insights.
-This returns, in a data frame, a summary of Instagram insights within the specified time period. 
-Only 30 days' data can be retrieved through the API and this is the full scope of variables.}
+\title{Instagram basic insights.}
 \usage{
 fbins_insta(start_date, until_date, time_period, page_access_token,
   insta_account)
@@ -21,7 +19,6 @@ fbins_insta(start_date, until_date, time_period, page_access_token,
 \item{period}{One of "day", "week", "days_28", "month", "lifetime", "total_over_range" .}
 }
 \description{
-Instagram basic insights.
 This returns, in a data frame, a summary of Instagram insights within the specified time period. 
 Only 30 days' data can be retrieved through the API and this is the full scope of variables.
 }

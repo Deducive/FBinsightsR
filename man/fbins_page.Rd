@@ -2,8 +2,7 @@
 % Please edit documentation in R/functions.R
 \name{fbins_page}
 \alias{fbins_page}
-\title{FB page basic insights.
-This returns, in a data frame, a summary of FB page insights within the specified time period}
+\title{FB page basic insights.}
 \usage{
 fbins_page(start_date, until_date, time_period, page_access_token,
   page_account)
@@ -20,7 +19,6 @@ fbins_page(start_date, until_date, time_period, page_access_token,
 \item{period}{One of "day", "week", "days_28", "month", "lifetime", "total_over_range" .}
 }
 \description{
-FB page basic insights.
 This returns, in a data frame, a summary of FB page insights within the specified time period
 }
 \examples{

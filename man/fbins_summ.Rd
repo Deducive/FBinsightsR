@@ -2,8 +2,7 @@
 % Please edit documentation in R/functions.R
 \name{fbins_summ}
 \alias{fbins_summ}
-\title{FB summary insights function.
-This returns, in a data frame, a summary of FB insights with no breakdown}
+\title{FB summary insights function.}
 \usage{
 fbins_summ(start_date, until_date, report_level, time_increment,
   fb_access_token, account)
@@ -22,7 +21,6 @@ fbins_summ(start_date, until_date, report_level, time_increment,
 \item{account}{This is the ad account, campaign, adset or ad ID to be queried.}
 }
 \description{
-FB summary insights function.
 This returns, in a data frame, a summary of FB insights with no breakdown
 }
 \examples{
