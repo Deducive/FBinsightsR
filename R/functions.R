@@ -266,7 +266,7 @@ fbins_pxa <- function(start_date, until_date, report_level, fb_access_token, acc
         level= report_level,
         fields = "campaign_id, objective, adset_id, adset_name, ad_id, ad_name, impressions, actions, clicks",
         time_increment="1",
-        limit = "7500",
+        limit = "10000",
         action_breakdowns = "action_type",
         breakdowns = "age, gender"
       ),
