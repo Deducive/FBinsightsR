@@ -264,11 +264,11 @@ fbins_pxa <- function(start_date, until_date, report_level, fb_access_token, acc
         access_token = fb_access_token,
         time_range = time_range,
         level= report_level,
-        fields = "campaign_id, objective, adset_id, adset_name, ad_id, ad_name, impressions, actions, clicks",
+        fields = "campaign_id, objective, adset_id, adset_name, ad_id, ad_name, impressions, actions",
         time_increment="1",
         limit = "10000",
         action_breakdowns = "action_type",
-        breakdowns = "age, gender"
+        breakdowns = ""
       ),
       encode = "json",
       verbose()))
