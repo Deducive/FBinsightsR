@@ -42,13 +42,13 @@ fbins_ag <- function(start_date, until_date, report_level, fb_access_token, acco
                   encode = "json",
                   verbose()))
   #extract data and name
-  content_result_df <- data.frame(content_result$data %>% reduce(bind_rows))
+  result_df <- data.frame(content_result$data %>% reduce(bind_rows))
   
   # Condition to detect the next page
   if(exists("next", content_result$paging) == TRUE){
     # Checking from the originally returned list
     result <- fromJSON(content_result$paging$`next`)
-    result_df <- bind_rows(content_result_df, as.tibble(result$data))
+    result_df <- bind_rows(result_df, as.tibble(result$data))
     
     # Looping through subsequent returned pages
     while(exists("next", result$paging) == TRUE){
@@ -101,13 +101,13 @@ fbins_summ <- function(start_date, until_date, report_level, time_increment, fb_
                 encode = "json",
                 verbose()))
   #extract data and name
-  content_result_df <- data.frame(content_result$data %>% reduce(bind_rows))
+  result_df <- data.frame(content_result$data %>% reduce(bind_rows))
   
   # Condition to detect the next page
   if(exists("next", content_result$paging) == TRUE){
     # Checking from the originally returned list
     result <- fromJSON(content_result$paging$`next`)
-    result_df <- bind_rows(content_result_df, as.tibble(result$data))
+    result_df <- bind_rows(result_df, as.tibble(result$data))
     
     # Looping through subsequent returned pages
     while(exists("next", result$paging) == TRUE){
@@ -289,22 +289,20 @@ fbins_pxa <- function(start_date, until_date, report_level, fb_access_token, acc
   }
   
   content_result <- fbins_rev(start_date, until_date, report_level, fb_access_token, account)
-  result_df <- get_pix_actions(content_result)
   
-  # result_df4 <- get_pix_actions(content_result)
+  #extract data and name
+  result_df <- data.frame(content_result$data %>% reduce(bind_rows))
   
   # Condition to detect the next page
   if(exists("next", content_result$paging) == TRUE){
-    # GET from the nextURL if it exists
-    content_result2 <- content(GET(content_result$paging$`next`))
-    result2_df <- get_pix_actions(content_result2)
-    result_df <- bind_rows(result_df, result2_df)
+    # Checking from the originally returned list
+    result <- fromJSON(content_result$paging$`next`)
+    result_df <- bind_rows(result_df, as.tibble(result$data))
     
     # Looping through subsequent returned pages
-    while(exists("next", content_result2$paging) == TRUE){
-      content_result2 <- content(GET(content_result2$paging$`next`))
-      result2_df <- get_pix_actions(content_result2)
-      result_df <- bind_rows(result_df, result2_df)
+    while(exists("next", result$paging) == TRUE){
+      result <- fromJSON(result$paging$`next`)
+      result_df <- bind_rows(result_df, as.tibble(result$data))
     }
   }
   result_df <- result_df
