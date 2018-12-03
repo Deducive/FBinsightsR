@@ -288,10 +288,9 @@ fbins_pxa <- function(start_date, until_date, report_level, fb_access_token, acc
                action_type == "offsite_conversion.fb_pixel_purchase")
   }
   
+  # Extract
   content_result <- fbins_rev(start_date, until_date, report_level, fb_access_token, account)
-  
-  #extract data and name
-  result_df <- data.frame(content_result$data %>% reduce(bind_rows))
+  result_df <- get_pix_actions(content_result)
   
   # Condition to detect the next page
   if(exists("next", content_result$paging) == TRUE){
