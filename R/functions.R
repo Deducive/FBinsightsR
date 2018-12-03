@@ -23,7 +23,7 @@ fbins_ag <- function(start_date, until_date, report_level, fb_access_token, acco
   range_content <- paste0(sstring,':','"',start_date,'"',',',ustring,':','"',until_date,'"')
   time_range <- paste0("{",range_content,"}")
   #paste together URL
-  api_version <- "v3.1"
+  api_version <- "v3.2"
   url_stem <- "https://graph.facebook.com/"
   URL <- paste0(url_stem, api_version, "/", account, "/insights")
   
@@ -84,7 +84,7 @@ fbins_summ <- function(start_date, until_date, report_level, time_increment, fb_
   range_content <- paste0(sstring,':','"',start_date,'"',',',ustring,':','"',until_date,'"')
   time_range <- paste0("{",range_content,"}")
   #paste together URL
-  api_version <- "v3.1"
+  api_version <- "v3.2"
   url_stem <- "https://graph.facebook.com/"
   URL <- paste0(url_stem, api_version, "/", account, "/insights")
   
@@ -135,7 +135,7 @@ fbins_summ <- function(start_date, until_date, report_level, time_increment, fb_
 
 fbins_page <- function(start_date, until_date, time_period, page_access_token, page_account){
   #paste together URL
-  api_version <- "v3.1"
+  api_version <- "v3.2"
   url_stem <- "https://graph.facebook.com/"
   URL <- paste0(url_stem, api_version, "/", page_account, "/insights")
   
@@ -190,7 +190,7 @@ fbins_page <- function(start_date, until_date, time_period, page_access_token, p
 
 fbins_insta <- function(start_date, until_date, time_period, page_access_token, insta_account){
   #paste together URL
-  api_version <- "v3.1"
+  api_version <- "v3.2"
   url_stem <- "https://graph.facebook.com/"
   URL <- paste0(url_stem, api_version, "/", insta_account, "/insights")
   
@@ -253,7 +253,7 @@ fbins_pxa <- function(start_date, until_date, report_level, fb_access_token, acc
     range_content <- paste0(sstring,':','"',start_date,'"',',',ustring,':','"',until_date,'"')
     time_range <- paste0("{",range_content,"}")
     #paste together URL
-    api_version <- "v3.1"
+    api_version <- "v3.2"
     url_stem <- "https://graph.facebook.com/"
     URL <- paste0(url_stem, api_version, "/", account, "/insights")
     
@@ -295,14 +295,16 @@ fbins_pxa <- function(start_date, until_date, report_level, fb_access_token, acc
   
   # Condition to detect the next page
   if(exists("next", content_result$paging) == TRUE){
-    # Checking from the originally returned list
-    result <- fromJSON(content_result$paging$`next`)
-    result_df <- bind_rows(result_df, as.tibble(result$data))
+    # GET from the nextURL if it exists
+    content_result2 <- content(GET(content_result$paging$`next`))
+    result2_df <- get_pix_actions(content_result2)
+    result_df <- bind_rows(result_df, result2_df)
     
     # Looping through subsequent returned pages
-    while(exists("next", result$paging) == TRUE){
-      result <- fromJSON(result$paging$`next`)
-      result_df <- bind_rows(result_df, as.tibble(result$data))
+    while(exists("next", content_result2$paging) == TRUE){
+      content_result2 <- content(GET(content_result2$paging$`next`))
+      result2_df <- get_pix_actions(content_result2)
+      result_df <- bind_rows(result_df, result2_df)
     }
   }
   result_df <- result_df
