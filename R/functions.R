@@ -268,7 +268,7 @@ fbins_pxa <- function(start_date, until_date, report_level, fb_access_token, acc
         time_increment="1",
         limit = "10000",
         action_breakdowns = "action_type",
-        breakdowns = ""
+        breakdowns = "age, gender"
       ),
       encode = "json",
       verbose()))
