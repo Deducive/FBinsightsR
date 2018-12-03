@@ -36,7 +36,7 @@ fbins_ag <- function(start_date, until_date, report_level, fb_access_token, acco
                     level= report_level,
                     fields = "campaign_id, objective, adset_id, adset_name, ad_id, ad_name, impressions, cpm, reach, clicks, unique_clicks, ctr, cpc, unique_ctr, cost_per_unique_click, estimated_ad_recall_rate, cost_per_estimated_ad_recallers, spend, canvas_avg_view_time, canvas_avg_view_percent",
                     time_increment="1",
-                    limit = "7500",
+                    limit = "4000",
                     breakdowns = "age, gender"
                     ),
                   encode = "json",
@@ -96,7 +96,7 @@ fbins_summ <- function(start_date, until_date, report_level, time_increment, fb_
                   level = report_level,
                   fields = "campaign_id, objective, adset_id, adset_name, ad_id, ad_name, impressions, cpm, reach, frequency, clicks, unique_clicks, ctr, cpc, unique_ctr, cost_per_unique_click, estimated_ad_recall_rate, cost_per_estimated_ad_recallers, spend, canvas_avg_view_time, canvas_avg_view_percent",
                   time_increment=time_increment,
-                  limit = "7500"
+                  limit = "4000"
                 ),
                 encode = "json",
                 verbose()))
