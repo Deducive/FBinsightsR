@@ -34,7 +34,7 @@ fbins_ag <- function(start_date, until_date, report_level, fb_access_token, acco
                     access_token = fb_access_token,
                     time_range = time_range,
                     level= report_level,
-                    fields = "campaign_id, objective, adset_id, adset_name, ad_id, ad_name, impressions, cpm, reach, clicks, unique_clicks, ctr, cpc, unique_ctr, cost_per_unique_click, estimated_ad_recall_rate, cost_per_estimated_ad_recallers, spend, canvas_avg_view_time, canvas_avg_view_percent",
+                    fields = "campaign_name, campaign_id, objective, adset_id, adset_name, ad_id, ad_name, impressions, cpm, reach, clicks, unique_clicks, ctr, cpc, unique_ctr, cost_per_unique_click, estimated_ad_recall_rate, cost_per_estimated_ad_recallers, spend, canvas_avg_view_time, canvas_avg_view_percent",
                     time_increment="1",
                     limit = "1000",
                     breakdowns = "age, gender"
@@ -94,7 +94,7 @@ fbins_summ <- function(start_date, until_date, report_level, time_increment, fb_
                   access_token = fb_access_token,
                   time_range = time_range,
                   level = report_level,
-                  fields = "campaign_id, objective, adset_id, adset_name, ad_id, ad_name, impressions, cpm, reach, frequency, clicks, unique_clicks, ctr, cpc, unique_ctr, cost_per_unique_click, estimated_ad_recall_rate, cost_per_estimated_ad_recallers, spend, canvas_avg_view_time, canvas_avg_view_percent",
+                  fields = "campaign_name, campaign_id, objective, adset_id, adset_name, ad_id, ad_name, impressions, cpm, reach, frequency, clicks, unique_clicks, ctr, cpc, unique_ctr, cost_per_unique_click, estimated_ad_recall_rate, cost_per_estimated_ad_recallers, spend, canvas_avg_view_time, canvas_avg_view_percent",
                   time_increment=time_increment,
                   limit = "1000"
                 ),
@@ -266,7 +266,7 @@ fbins_pxa <- function(start_date, until_date, report_level, fb_access_token, acc
         level= report_level,
         fields = "campaign_id, objective, adset_id, adset_name, ad_id, ad_name, impressions, actions",
         time_increment="1",
-        limit = "1000",
+        limit = "50",
         action_breakdowns = "action_type",
         breakdowns = "age, gender"
       ),
@@ -308,8 +308,4 @@ fbins_pxa <- function(start_date, until_date, report_level, fb_access_token, acc
   }
   result_df <- result_df
 }
-
-
-
-
 
