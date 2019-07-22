@@ -16,16 +16,16 @@
 #' fbins_ag("2017-01-20", "2017-01-22", "ad", "ABCDEFG1234567890ABCDEFG", "act_12345678")
 
 fbins_ag <- function(start_date, until_date, report_level, fb_access_token, account){
-  #set variables
+  
+  # Starting URL
+  url <- "https://graph.facebook.com/"
+  URL <- paste0(url, api_version, "/", account, "/insights")
+  
+  # Time range
   sstring <- paste0('"','since','"')
   ustring <- paste0('"','until','"')
-  #paste together JSON string
   range_content <- paste0(sstring,':','"',start_date,'"',',',ustring,':','"',until_date,'"')
-  time_range <- paste0("{",range_content,"}")
-  #paste together URL
-  api_version <- "v3.3"
-  url_stem <- "https://graph.facebook.com/"
-  URL <- paste0(url_stem, api_version, "/", account, "/insights")
+  time_range <- paste0("{", range_content, "}")
   
   #call insights
   content_result <- content(GET(
@@ -35,12 +35,19 @@ fbins_ag <- function(start_date, until_date, report_level, fb_access_token, acco
                     time_range = time_range,
                     level= report_level,
                     fields = "campaign_name, campaign_id, objective, adset_id, adset_name, ad_id, ad_name, impressions, cpm, reach, clicks, unique_clicks, ctr, cpc, unique_ctr, cost_per_unique_click, estimated_ad_recall_rate, cost_per_estimated_ad_recallers, spend, canvas_avg_view_time, canvas_avg_view_percent",
-                    time_increment="1",
+                    time_increment = "1",
                     limit = "1000",
                     breakdowns = "age, gender"
                     ),
                   encode = "json",
                   verbose()))
+
+  # Check for no-data (user might think there was an error on GET request - warn him!)
+  if (length(content_result$data) == 0){
+    warning("There is no data for this query!")
+    invisible(return(NULL))
+  }
+  
   #extract data and name
   result_df <- data.frame(content_result$data %>% reduce(bind_rows))
   
