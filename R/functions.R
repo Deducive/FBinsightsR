@@ -41,6 +41,18 @@ fbins_ag <- function(start_date, until_date, report_level, fb_access_token, acco
                     ),
                   encode = "json",
                   verbose()))
+  
+  # Show and return error if exists
+  if ("error" %in% names(content_result)){
+    message(paste(
+      paste0("ERROR ", content_result$error$code, " (",
+             content_result$error$type, "):"),
+      content_result$error$message
+    ))
+    # Very useful for Shiny apps
+    invisible(return(content_result$error))
+  }
+  
   #extract data and name
   result_df <- data.frame(content_result$data %>% reduce(bind_rows))
   
