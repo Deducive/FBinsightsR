@@ -23,10 +23,10 @@ fbins_ag <- function(start_date, until_date, report_level, fb_access_token, acco
   range_content <- paste0(sstring,':','"',start_date,'"',',',ustring,':','"',until_date,'"')
   time_range <- paste0("{",range_content,"}")
   #paste together URL
-  api_version <- "v8.0"
+  api_version <- "v9.0"
   url_stem <- "https://graph.facebook.com/"
   URL <- paste0(url_stem, api_version, "/", account, "/insights")
-  
+
   #call insights
   content_result <- content(GET(
                   URL,
@@ -41,7 +41,7 @@ fbins_ag <- function(start_date, until_date, report_level, fb_access_token, acco
                     ),
                   encode = "json",
                   verbose()))
-  
+
   # Show and return error if exists
   if ("error" %in% names(content_result)){
     message(paste(
@@ -52,16 +52,16 @@ fbins_ag <- function(start_date, until_date, report_level, fb_access_token, acco
     # Very useful for Shiny apps
     invisible(return(content_result$error))
   }
-  
+
   #extract data and name
   result_df <- data.frame(content_result$data %>% reduce(bind_rows))
-  
+
   # Condition to detect the next page
   if(exists("next", content_result$paging) == TRUE){
     # Checking from the originally returned list
     result <- fromJSON(content_result$paging$`next`)
     result_df <- bind_rows(result_df, as.tibble(result$data))
-    
+
     # Looping through subsequent returned pages
     while(exists("next", result$paging) == TRUE){
       result <- fromJSON(result$paging$`next`)
@@ -96,10 +96,10 @@ fbins_summ <- function(start_date, until_date, report_level, time_increment, fb_
   range_content <- paste0(sstring,':','"',start_date,'"',',',ustring,':','"',until_date,'"')
   time_range <- paste0("{",range_content,"}")
   #paste together URL
-  api_version <- "v8.0"
+  api_version <- "v9.0"
   url_stem <- "https://graph.facebook.com/"
   URL <- paste0(url_stem, api_version, "/", account, "/insights")
-  
+
   #call insights
   content_result <- content(GET(URL,
                 query = list(
@@ -114,13 +114,13 @@ fbins_summ <- function(start_date, until_date, report_level, time_increment, fb_
                 verbose()))
   #extract data and name
   result_df <- data.frame(content_result$data %>% reduce(bind_rows))
-  
+
   # Condition to detect the next page
   if(exists("next", content_result$paging) == TRUE){
     # Checking from the originally returned list
     result <- fromJSON(content_result$paging$`next`)
     result_df <- bind_rows(result_df, as.tibble(result$data))
-    
+
     # Looping through subsequent returned pages
     while(exists("next", result$paging) == TRUE){
       result <- fromJSON(result$paging$`next`)
@@ -147,10 +147,10 @@ fbins_summ <- function(start_date, until_date, report_level, time_increment, fb_
 
 fbins_page <- function(start_date, until_date, time_period, page_access_token, page_account){
   #paste together URL
-  api_version <- "v8.0"
+  api_version <- "v9.0"
   url_stem <- "https://graph.facebook.com/"
   URL <- paste0(url_stem, api_version, "/", page_account, "/insights")
-  
+
   #call insights
   content_result <- content(GET
                             (URL,
@@ -162,12 +162,12 @@ fbins_page <- function(start_date, until_date, time_period, page_access_token, p
                                 until = until_date),
                               encode = "json",
                               verbose()))
-  
+
   ## Create df with extracted date range
   result_df <- data.frame(content_result$data[[1]][["values"]] %>%
                             reduce(bind_rows)) %>%
     select("end_time")
-  
+
   ## Loop through, extract and bind to date only frame
   for(i in seq_along(content_result$data)){
     result_temp <- data.frame(content_result$data[[i]][["values"]] %>%
@@ -176,18 +176,18 @@ fbins_page <- function(start_date, until_date, time_period, page_access_token, p
     result_df <- merge(result_df, result_temp, by = "end_time")
   }
   rm(result_temp)
-  
+
   ## Trim date character, new column in date class, delete old col and reorder
   result_df <- result_df %>%
     mutate(date=ymd(substr(end_time, start = 1, stop = 10))) %>%
-    select(-end_time) %>% 
+    select(-end_time) %>%
     select(ncol(result_df), 1:ncol(result_df))
 }
 
 ###### Function 4 - fbins_insta
 
 #' Instagram basic insights.
-#' @description This returns, in a data frame, a summary of Instagram insights within the specified time period. 
+#' @description This returns, in a data frame, a summary of Instagram insights within the specified time period.
 #' Only 30 days' data can be retrieved through the API and this is the full scope of variables.
 #' @param start_date The first full day to report, in the format "YYYY-MM-DD" .
 #' @param until_date The last full day to report, in the format "YYYY-MM-DD" .
@@ -202,10 +202,10 @@ fbins_page <- function(start_date, until_date, time_period, page_access_token, p
 
 fbins_insta <- function(start_date, until_date, time_period, page_access_token, insta_account){
   #paste together URL
-  api_version <- "v8.0"
+  api_version <- "v9.0"
   url_stem <- "https://graph.facebook.com/"
   URL <- paste0(url_stem, api_version, "/", insta_account, "/insights")
-  
+
   #call insights
   content_result <- content(GET
                             (URL,
@@ -217,12 +217,12 @@ fbins_insta <- function(start_date, until_date, time_period, page_access_token, 
                                 until = until_date),
                               encode = "json",
                               verbose()))
-  
+
   ## Create df with extracted date range
   result_df <- data.frame(content_result$data[[1]][["values"]] %>%
                             reduce(bind_rows)) %>%
     select("end_time")
-  
+
   ## Loop through, extract and bind to date only frame
   for(i in seq_along(content_result$data)){
     result_temp <- data.frame(content_result$data[[i]][["values"]] %>%
@@ -231,11 +231,11 @@ fbins_insta <- function(start_date, until_date, time_period, page_access_token, 
     result_df <- merge(result_df, result_temp, by = "end_time")
   }
   rm(result_temp)
-  
+
   ## Trim date character, new column in date class, delete old col and reorder
   result_df <- result_df %>%
     mutate(date=ymd(substr(end_time, start = 1, stop = 10))) %>%
-    select(-end_time) %>% 
+    select(-end_time) %>%
     select(ncol(result_df), 1:ncol(result_df))
 }
 
@@ -265,10 +265,10 @@ fbins_pxa <- function(start_date, until_date, report_level, fb_access_token, acc
     range_content <- paste0(sstring,':','"',start_date,'"',',',ustring,':','"',until_date,'"')
     time_range <- paste0("{",range_content,"}")
     #paste together URL
-    api_version <- "v8.0"
+    api_version <- "v9.0"
     url_stem <- "https://graph.facebook.com/"
     URL <- paste0(url_stem, api_version, "/", account, "/insights")
-    
+
     #call insights
     content_result <- content(GET(
       URL,
@@ -284,33 +284,33 @@ fbins_pxa <- function(start_date, until_date, report_level, fb_access_token, acc
       ),
       encode = "json",
       verbose()))
-    
+
   }
   get_pix_actions <- function(content_result){
-    # Extract & create 
+    # Extract & create
     nested_df <- map_dfr(content_result$data, ~modify_at(.,"actions", compose(list,bind_rows)))
     missing_actions <- lengths(nested_df$actions) == 0
     nested_df$actions[missing_actions] <- replicate(sum(missing_actions),
                                                     tibble(action_device = NA, action_type = NA, value = NA), F)
-    
+
     # Filter for only pixel actions
     unnest(nested_df) %>%
       filter(action_type == "offsite_conversion.fb_pixel_add_to_cart" |
                action_type == "offsite_conversion.fb_pixel_custom" |
                action_type == "offsite_conversion.fb_pixel_purchase")
   }
-  
+
   # Extract
   content_result <- fbins_rev(start_date, until_date, report_level, fb_access_token, account)
   result_df <- get_pix_actions(content_result)
-  
+
   # Condition to detect the next page
   if(exists("next", content_result$paging) == TRUE){
     # GET from the nextURL if it exists
     content_result2 <- content(GET(content_result$paging$`next`))
     result2_df <- get_pix_actions(content_result2)
     result_df <- bind_rows(result_df, result2_df)
-    
+
     # Looping through subsequent returned pages
     while(exists("next", content_result2$paging) == TRUE){
       content_result2 <- content(GET(content_result2$paging$`next`))
